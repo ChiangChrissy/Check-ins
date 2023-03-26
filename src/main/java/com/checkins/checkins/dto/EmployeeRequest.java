@@ -6,13 +6,22 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class EmployeeRequest {
+
+    private Integer id;
     @NotEmpty
     private String name;
-    @NotNull
+    @NotEmpty
     private String phone;
     @NotNull
     private Position position;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

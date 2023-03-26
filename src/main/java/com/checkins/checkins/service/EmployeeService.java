@@ -6,6 +6,8 @@ import com.checkins.checkins.repo.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -19,21 +21,45 @@ public class EmployeeService {
 //employeeRepository.findById().get() 是用來取得EmployeeEntity物件，如果是null會報錯:java.util.NoSuchElementException
     public EmployeeEntity getEmployee(Integer id) {
 //        return Optional.ofNullable(employeeRepository.findById(Optional.of(id).get()).get()).get();
+        //如果值存在，就回傳；若不存在，回傳null
         return employeeRepository.findById(id).orElse(null);
     }
-
+    public List<EmployeeEntity> getAll(){
+        List<EmployeeEntity> allData;
+        allData = employeeRepository.findAll();
+        return allData;
+    }
     public Integer createEmployee(EmployeeRequest employeeRequest) {
+        if(!employeeRequest.getPhone().matches("^09\\d{8}")){
+            throw new IllegalArgumentException("手機格式不正確");
+        }
+
         EmployeeEntity employeeEntity = new EmployeeEntity();
-        setValues(employeeRequest, employeeEntity);
+        createSetValues(employeeRequest, employeeEntity);
         employeeEntity = employeeRepository.save(employeeEntity);
         return employeeEntity.getId();
     }
 
-    private static void setValues(EmployeeRequest employeeRequest, EmployeeEntity employeeEntity) {
+    private static void createSetValues(EmployeeRequest employeeRequest, EmployeeEntity employeeEntity) {
+        employeeEntity.setName(employeeRequest.getName());
+        employeeEntity.setPhone(employeeRequest.getPhone());
+        employeeEntity.setPosition(employeeRequest.getPosition());
+    }
+    private static void updateSetValues(EmployeeRequest employeeRequest, EmployeeEntity employeeEntity) {
+        employeeEntity.setId(employeeRequest.getId());
         employeeEntity.setName(employeeRequest.getName());
         employeeEntity.setPhone(employeeRequest.getPhone());
         employeeEntity.setPosition(employeeRequest.getPosition());
     }
 
+    public void deleteEmployee(Integer id){
+        employeeRepository.deleteById(id);
+    }
 
+    public EmployeeEntity updateEmployee(EmployeeRequest employeeRequest){
+        EmployeeEntity employeeEntity = new EmployeeEntity();
+        updateSetValues(employeeRequest,employeeEntity);
+        employeeEntity = employeeRepository.save(employeeEntity);
+        return employeeEntity;
+    }
 }//EmployeeService
