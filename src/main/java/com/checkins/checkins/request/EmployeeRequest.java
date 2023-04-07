@@ -1,6 +1,6 @@
-package com.checkins.checkins.dto;
+package com.checkins.checkins.request;
 
-import com.checkins.checkins.constant.Position;
+import com.checkins.checkins.enums.PositionEnum;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -13,7 +13,7 @@ public class EmployeeRequest {
     @NotEmpty
     private String phone;
     @NotNull
-    private Position position;
+    private String position;
 
     public Integer getId() {
         return id;
@@ -39,11 +39,11 @@ public class EmployeeRequest {
         this.phone = phone;
     }
 
-    public Position getPosition() {
+    public String getPosition() {
         return position;
     }
 
-    public void setPosition(Position position) {
+    public void setPosition(String position) {
         this.position = position;
     }
 }

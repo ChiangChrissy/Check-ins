@@ -1,6 +1,6 @@
 package com.checkins.checkins.entity;
 
-import com.checkins.checkins.constant.Position;
+import com.checkins.checkins.enums.PositionEnum;
 
 import javax.persistence.*;
 
@@ -16,8 +16,8 @@ public class EmployeeEntity {
     @Column(name = "phone")
     private String phone;
     @Column(name = "position")
-    @Enumerated(EnumType.STRING)
-    private Position position;
+//    @Enumerated(EnumType.STRING)
+    private String position;
 
 
     public Integer getId() {
@@ -44,11 +44,11 @@ public class EmployeeEntity {
         this.phone = phone;
     }
 
-    public Position getPosition() {
+    public String getPosition() {
         return position;
     }
 
-    public void setPosition(Position position) {
+    public void setPosition(String position) {
         this.position = position;
     }
 }
