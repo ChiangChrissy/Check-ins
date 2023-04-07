@@ -18,6 +18,14 @@ public class EmployeeEntity {
     @Column(name = "position")
 //    @Enumerated(EnumType.STRING)
     private String position;
+    @Column(name = "salary")
+    private Integer salary;
+
+//    public EmployeeEntity(Integer id, String name, Integer salary) {
+//        this.id = id;
+//        this.name = name;
+//        this.salary = salary;
+//    }
 
 
     public Integer getId() {
@@ -50,5 +58,13 @@ public class EmployeeEntity {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public Integer getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Integer salary) {
+        this.salary = salary;
     }
 }

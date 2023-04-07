@@ -10,8 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/employee")
-
-
 public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
@@ -20,29 +18,29 @@ public class EmployeeController {
     public EmployeeEntity getEmployee(@PathVariable Integer id) {
         return employeeService.getEmployee(id);
     }//getEmployee
-
     @GetMapping("/all")
     public List<EmployeeEntity> getAll() {
         return employeeService.getAll();
     }
-
     @PostMapping("/createEmployee")
     public EmployeeEntity add(@RequestBody @Valid EmployeeRequest employeeRequest) {
         return employeeService.getEmployee(employeeService.createEmployee(employeeRequest));
     }
-
     @PutMapping("/updateEmployee")
     public EmployeeEntity update(@RequestBody EmployeeRequest employeeRequest) {
         return employeeService.getEmployee(employeeService.updateEmployee(employeeRequest));
     }//update
-
     @DeleteMapping("/removeEmployee/{id}")
     public String delete(@PathVariable Integer id) {
         return employeeService.deleteEmployee(id);
     }
-    @PostMapping("/EmployeePosition/{position}")
-    public List<EmployeeEntity> EmployeePosition(@PathVariable String position){
+    @PostMapping("/employeePosition/{position}")
+    public List<EmployeeEntity> employeePosition(@PathVariable String position){
         return employeeService.getEmployeeByPosition(position);
+    }
+    @PostMapping("/unifiedSalaryAdjustment/{modify}")
+    public List<EmployeeEntity> unifiedSalaryAdjustment(@PathVariable Integer modify){
+        return employeeService.unifiedSalaryAdjustment(modify);
     }
 
 

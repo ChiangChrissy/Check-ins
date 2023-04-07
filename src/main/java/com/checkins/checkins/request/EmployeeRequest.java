@@ -14,6 +14,8 @@ public class EmployeeRequest {
     private String phone;
     @NotNull
     private String position;
+    @NotNull
+    private Integer salary;
 
     public Integer getId() {
         return id;
@@ -45,6 +47,14 @@ public class EmployeeRequest {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public Integer getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Integer salary) {
+        this.salary = salary;
     }
 }
 
