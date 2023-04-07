@@ -1,6 +1,7 @@
 package com.checkins.checkins.service;
 
 import com.checkins.checkins.entity.EmployeeEntity;
+import com.checkins.checkins.enums.PositionEnum;
 import com.checkins.checkins.repo.EmployeeRepository;
 import com.checkins.checkins.request.EmployeeRequest;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 import static com.checkins.checkins.enums.PositionEnum.getEnum;
@@ -48,14 +50,20 @@ public class EmployeeService {
             checkPhoneDigit(employeeRequest);
             updateSetValues(employeeRequest, employeeEntity);
             employeeEntity = employeeRepository.save(employeeEntity);
-        }catch (IllegalArgumentException illegalArgumentException){
+        } catch (IllegalArgumentException illegalArgumentException) {
             LOGGER.error(String.valueOf(illegalArgumentException.getMessage()));
-        }catch (Exception e){
+        } catch (Exception e) {
             LOGGER.error("Column does not allow nulls. UPDATE fails.");
             return null;
         }
         return employeeEntity.getId();
     }//updateEmployee
+    public List<EmployeeEntity> getEmployeeByPosition(String position) {
+        List<EmployeeEntity> allEmployeeList = getAll();
+        return allEmployeeList.stream().filter(
+                        allEmployeeList1 -> getEnum(position).equals(allEmployeeList1.getPosition()))
+                .collect(Collectors.toList());
+    }
     private static void checkPhoneDigit(EmployeeRequest employeeRequest) {
         if (!employeeRequest.getPhone().matches("^09\\d{8}")) {
             throw new IllegalArgumentException("手機格式不正確");

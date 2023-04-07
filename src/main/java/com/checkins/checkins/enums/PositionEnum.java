@@ -1,33 +1,20 @@
 package com.checkins.checkins.enums;
 
 public enum PositionEnum {
-    //    //組長
-//    TEAMLEADER,
-//    ENGINEER,
-//    ASSISTANT,
-//    //董事長
-//    CHAIRMAN,
-//    //總裁
-//    PRESIDENT,
-//    MANAGER,
-//    ADMINISTRATOR,
-//    //行銷
-//    MARKETING,
-//    //會計
-//    ACCOUNTANT
-    TeamLeader,
-    Engineer,
-    Assistant,
+        //組長
+    TEAMLEADER,
+    ENGINEER,
+    ASSISTANT,
     //董事長
-    Chairman,
+    CHAIRMAN,
     //總裁
-    President,
-    Manager,
-    Administrator,
+    PRESIDENT,
+    MANAGER,
+    ADMINISTRATOR,
     //行銷
-    Marketing,
+    MARKETING,
     //會計
-    Accountant;
+    ACCOUNTANT;
 
     public static String getEnum(String value) {
         if (value == null || value.length() < 1) {

@@ -34,13 +34,18 @@ public class EmployeeController {
     @PutMapping("/updateEmployee")
     public EmployeeEntity update(@RequestBody EmployeeRequest employeeRequest) {
         return employeeService.getEmployee(employeeService.updateEmployee(employeeRequest));
-
     }//update
 
     @DeleteMapping("/removeEmployee/{id}")
     public String delete(@PathVariable Integer id) {
         return employeeService.deleteEmployee(id);
     }
+    @PostMapping("/EmployeePosition/{position}")
+    public List<EmployeeEntity> EmployeePosition(@PathVariable String position){
+        return employeeService.getEmployeeByPosition(position);
+    }
+
+
 
 }//EmployeeController
 
