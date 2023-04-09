@@ -20,6 +20,8 @@ public class EmployeeEntity {
     private String position;
     @Column(name = "salary")
     private Integer salary;
+    @Column(name = "age")
+    private Integer age;
 
 //    public EmployeeEntity(Integer id, String name, Integer salary) {
 //        this.id = id;
@@ -66,5 +68,13 @@ public class EmployeeEntity {
 
     public void setSalary(Integer salary) {
         this.salary = salary;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 }

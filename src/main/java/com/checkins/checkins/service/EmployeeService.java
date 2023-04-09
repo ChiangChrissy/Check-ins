@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -74,7 +76,6 @@ public class EmployeeService {
 
     public List<EmployeeEntity> unifiedSalaryAdjustment(Integer modify) {
         List<EmployeeEntity> allEmployeeList = getAll();
-
         return allEmployeeList.stream()
                 .map(employee -> {
                     Integer adjustedSalary = employee.getSalary() + modify;
@@ -82,6 +83,20 @@ public class EmployeeService {
                     employeeRepository.save(employee);//將結果寫進db
                     return employee;
                 }).collect(Collectors.toList());
+    }
+
+    public Integer employeeAgeAverage() {
+        List<EmployeeEntity> allEmployeeList = getAll();
+        // 算出員工人數
+        long number = allEmployeeList.size();
+        // 回傳員工年紀平均
+        return allEmployeeList.stream()
+//                .mapToInt(em->em.getAge())
+                .mapToInt(EmployeeEntity::getAge)
+//                .reduce((sum,age)->sum+age)
+                .reduce(Integer::sum)
+//                .getAsInt()/(int) number
+                .orElse(0)/(int) number;
     }
 
     private static void checkPhoneDigit(EmployeeRequest employeeRequest) {
@@ -95,6 +110,7 @@ public class EmployeeService {
         employeeEntity.setPhone(employeeRequest.getPhone());
         employeeEntity.setPosition(getEnum(employeeRequest.getPosition()));
         employeeEntity.setSalary(employeeRequest.getSalary());
+        employeeEntity.setAge(employeeRequest.getAge());
     }
 
     private static void updateSetValues(EmployeeRequest employeeRequest, EmployeeEntity employeeEntity) {
@@ -103,6 +119,7 @@ public class EmployeeService {
         employeeEntity.setPhone(employeeRequest.getPhone());
         employeeEntity.setPosition(getEnum(employeeRequest.getPosition()));
         employeeEntity.setSalary(employeeRequest.getSalary());
+        employeeEntity.setAge(employeeRequest.getAge());
     }
 
 }//EmployeeService

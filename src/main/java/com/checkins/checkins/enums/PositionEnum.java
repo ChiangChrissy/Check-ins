@@ -1,7 +1,7 @@
 package com.checkins.checkins.enums;
 
 public enum PositionEnum {
-        //組長
+    //組長
     TEAMLEADER,
     ENGINEER,
     ASSISTANT,

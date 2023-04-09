@@ -16,6 +16,8 @@ public class EmployeeRequest {
     private String position;
     @NotNull
     private Integer salary;
+    @NotNull
+    private Integer age;
 
     public Integer getId() {
         return id;
@@ -55,6 +57,14 @@ public class EmployeeRequest {
 
     public void setSalary(Integer salary) {
         this.salary = salary;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 }
 

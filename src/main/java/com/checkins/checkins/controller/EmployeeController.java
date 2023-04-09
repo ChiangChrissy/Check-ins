@@ -43,6 +43,9 @@ public class EmployeeController {
         return employeeService.unifiedSalaryAdjustment(modify);
     }
 
+    @GetMapping("/averageAge")
+    public Integer employeeAgeAverage(){return employeeService.employeeAgeAverage();}
+
 
 
 }//EmployeeController
