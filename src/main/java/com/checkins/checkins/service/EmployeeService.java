@@ -70,7 +70,7 @@ public class EmployeeService {
     public List<EmployeeEntity> getEmployeeByPosition(String position) {
         List<EmployeeEntity> allEmployeeList = getAll();
         return allEmployeeList.stream().filter(
-                        a -> getEnum(position).equals(a.getPosition()))
+                        a -> getEnum(position)==getEnum(a.getPosition()))
                 .collect(Collectors.toList());
     }
 
@@ -78,7 +78,7 @@ public class EmployeeService {
         List<EmployeeEntity> allEmployeeList = getAll();
         return allEmployeeList.stream()
                 .map(employee -> {
-                    Integer adjustedSalary = employee.getSalary() + modify;
+                    int adjustedSalary = employee.getSalary() + modify;
                     employee.setSalary(adjustedSalary);
                     employeeRepository.save(employee);//將結果寫進db
                     return employee;
@@ -108,7 +108,7 @@ public class EmployeeService {
     private static void createSetValues(EmployeeRequest employeeRequest, EmployeeEntity employeeEntity) {
         employeeEntity.setName(employeeRequest.getName());
         employeeEntity.setPhone(employeeRequest.getPhone());
-        employeeEntity.setPosition(getEnum(employeeRequest.getPosition()));
+        employeeEntity.setPosition(getEnum(employeeRequest.getPosition()).name());
         employeeEntity.setSalary(employeeRequest.getSalary());
         employeeEntity.setAge(employeeRequest.getAge());
     }
@@ -117,7 +117,7 @@ public class EmployeeService {
         employeeEntity.setId(employeeRequest.getId());
         employeeEntity.setName(employeeRequest.getName());
         employeeEntity.setPhone(employeeRequest.getPhone());
-        employeeEntity.setPosition(getEnum(employeeRequest.getPosition()));
+        employeeEntity.setPosition(getEnum(employeeRequest.getPosition()).name());
         employeeEntity.setSalary(employeeRequest.getSalary());
         employeeEntity.setAge(employeeRequest.getAge());
     }

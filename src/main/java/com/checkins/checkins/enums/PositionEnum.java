@@ -16,13 +16,13 @@ public enum PositionEnum {
     //會計
     ACCOUNTANT;
 
-    public static String getEnum(String value) {
+    public static Enum getEnum(String value) {
         if (value == null || value.length() < 1) {
             return null;
         }
         for (PositionEnum positionEnum : values()) {
             if (positionEnum.name().equalsIgnoreCase(value))
-                return positionEnum.toString();
+                return positionEnum;
         }
         return null;
     }
