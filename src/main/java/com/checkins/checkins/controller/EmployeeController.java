@@ -23,26 +23,25 @@ public class EmployeeController {
         return employeeService.getAll();
     }
     @PostMapping("/createEmployee")
-    public EmployeeEntity add(@RequestBody @Valid EmployeeRequest employeeRequest) {
+    public EmployeeEntity createEmployee(@RequestBody @Valid EmployeeRequest employeeRequest) {
         return employeeService.getEmployee(employeeService.createEmployee(employeeRequest));
     }
     @PutMapping("/updateEmployee")
-    public EmployeeEntity update(@RequestBody EmployeeRequest employeeRequest) {
+    public EmployeeEntity updateEmployee(@RequestBody EmployeeRequest employeeRequest) {
         return employeeService.getEmployee(employeeService.updateEmployee(employeeRequest));
     }//update
     @DeleteMapping("/removeEmployee/{id}")
-    public String delete(@PathVariable Integer id) {
+    public String removeEmployee(@PathVariable Integer id) {
         return employeeService.deleteEmployee(id);
     }
     @PostMapping("/employeePosition/{position}")
-    public List<EmployeeEntity> employeePosition(@PathVariable String position){
+    public List<EmployeeEntity> getEmployeePosition(@PathVariable String position){
         return employeeService.getEmployeeByPosition(position);
     }
     @PostMapping("/unifiedSalaryAdjustment/{modify}")
     public List<EmployeeEntity> unifiedSalaryAdjustment(@PathVariable Integer modify){
         return employeeService.unifiedSalaryAdjustment(modify);
     }
-
     @GetMapping("/averageAge")
     public Integer employeeAgeAverage(){return employeeService.employeeAgeAverage();}
 

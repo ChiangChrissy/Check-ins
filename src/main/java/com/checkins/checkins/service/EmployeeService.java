@@ -1,6 +1,7 @@
 package com.checkins.checkins.service;
 
 import com.checkins.checkins.entity.EmployeeEntity;
+import com.checkins.checkins.enums.AuthorityEnum;
 import com.checkins.checkins.enums.PositionEnum;
 import com.checkins.checkins.repo.EmployeeRepository;
 import com.checkins.checkins.request.EmployeeRequest;
@@ -8,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -35,7 +37,6 @@ public class EmployeeService {
     }
 
     public Integer createEmployee(EmployeeRequest employeeRequest) {
-        checkPhoneDigit(employeeRequest);
         EmployeeEntity employeeEntity = new EmployeeEntity();
         createSetValues(employeeRequest, employeeEntity);
         employeeEntity = employeeRepository.save(employeeEntity);
@@ -55,7 +56,6 @@ public class EmployeeService {
     public Integer updateEmployee(EmployeeRequest employeeRequest) {
         EmployeeEntity employeeEntity = new EmployeeEntity();
         try {
-            checkPhoneDigit(employeeRequest);
             updateSetValues(employeeRequest, employeeEntity);
             employeeEntity = employeeRepository.save(employeeEntity);
         } catch (IllegalArgumentException illegalArgumentException) {
@@ -99,27 +99,32 @@ public class EmployeeService {
                 .orElse(0)/(int) number;
     }
 
-    private static void checkPhoneDigit(EmployeeRequest employeeRequest) {
-        if (!employeeRequest.getPhone().matches("^09\\d{8}")) {
-            throw new IllegalArgumentException("手機格式不正確");
-        }
-    }
+//    private static void checkPhoneDigit(EmployeeRequest employeeRequest) {
+//        if (!employeeRequest.getPhone().matches("^09\\d{8}")) {
+//            throw new IllegalArgumentException("手機格式不正確");
+//        }
+//    }
 
     private static void createSetValues(EmployeeRequest employeeRequest, EmployeeEntity employeeEntity) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         employeeEntity.setName(employeeRequest.getName());
-        employeeEntity.setPhone(employeeRequest.getPhone());
-        employeeEntity.setPosition(getEnum(employeeRequest.getPosition()).name());
+        employeeEntity.setPosition(employeeRequest.getPosition().name());
         employeeEntity.setSalary(employeeRequest.getSalary());
         employeeEntity.setAge(employeeRequest.getAge());
+        employeeEntity.setUserPwd(bCryptPasswordEncoder.encode(employeeRequest.getPasswd()));
+        employeeEntity.setAuth(employeeRequest.getAuth().name());
     }
 
     private static void updateSetValues(EmployeeRequest employeeRequest, EmployeeEntity employeeEntity) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         employeeEntity.setId(employeeRequest.getId());
         employeeEntity.setName(employeeRequest.getName());
-        employeeEntity.setPhone(employeeRequest.getPhone());
-        employeeEntity.setPosition(getEnum(employeeRequest.getPosition()).name());
+        employeeEntity.setPosition(employeeRequest.getPosition().name());
         employeeEntity.setSalary(employeeRequest.getSalary());
         employeeEntity.setAge(employeeRequest.getAge());
+        employeeEntity.setUserPwd(bCryptPasswordEncoder.encode(employeeRequest.getPasswd()));
+        employeeEntity.setAuth(employeeRequest.getAuth().name());
     }
+
 
 }//EmployeeService

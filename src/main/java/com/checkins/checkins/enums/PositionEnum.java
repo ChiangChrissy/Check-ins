@@ -16,7 +16,7 @@ public enum PositionEnum {
     //會計
     ACCOUNTANT;
 
-    public static Enum getEnum(String value) {
+    public static PositionEnum getEnum(String value) {
         if (value == null || value.length() < 1) {
             return null;
         }

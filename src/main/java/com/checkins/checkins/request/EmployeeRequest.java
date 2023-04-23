@@ -1,5 +1,6 @@
 package com.checkins.checkins.request;
 
+import com.checkins.checkins.enums.AuthorityEnum;
 import com.checkins.checkins.enums.PositionEnum;
 
 import javax.validation.constraints.NotEmpty;
@@ -10,14 +11,17 @@ public class EmployeeRequest {
     private Integer id;
     @NotEmpty
     private String name;
-    @NotEmpty
-    private String phone;
     @NotNull
     private String position;
     @NotNull
     private Integer salary;
     @NotNull
     private Integer age;
+    @NotNull
+    private String passwd;
+    @NotNull
+    private String auth;
+
 
     public Integer getId() {
         return id;
@@ -35,16 +39,8 @@ public class EmployeeRequest {
         this.name = name;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getPosition() {
-        return position;
+    public PositionEnum getPosition() {
+        return PositionEnum.getEnum(position);
     }
 
     public void setPosition(String position) {
@@ -65,6 +61,22 @@ public class EmployeeRequest {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public String getPasswd() {
+        return passwd;
+    }
+
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
+    }
+
+    public AuthorityEnum getAuth() {
+        return AuthorityEnum.getEnum(auth);
+    }
+
+    public void setAuth(String auth) {
+        this.auth = auth;
     }
 }
 
